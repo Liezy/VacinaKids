@@ -25,9 +25,10 @@ SECRET_KEY = 'django-insecure-u1v4!ec_ovb!7!n(56eaa33=+=3(1#bp*h(yux&8qn)6@n5b7)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['vacinakids.onrender.com', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = [
+    'https://vacinakids.onrender.com',
     'https://*.ngrok-free.app',
 ]
 
