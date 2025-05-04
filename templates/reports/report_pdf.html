@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <style>
+    @page {
+      margin: 2.5cm 1.5cm;
+    }
+    
+    body {
+      font-family: 'Helvetica', 'Arial', sans-serif;
+      font-size: 11pt;
+      line-height: 1.5;
+      color: #333333;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .logo {
+      margin-bottom: 15px;
+      font-size: 16pt;
+      font-weight: bold;
+      color: #2c5282;
+    }
+    
+    h1 {
+      font-size: 18pt;
+      color: #2c5282;
+      margin: 0 0 5px 0;
+      font-weight: 600;
+    }
+    
+    .subtitle {
+      font-size: 11pt;
+      color: #718096;
+      margin: 0;
+    }
+    
+    .filter-info {
+      background-color: #f8fafc;
+      border-radius: 6px;
+      padding: 15px;
+      margin: 20px 0;
+      border: 1px solid #e2e8f0;
+    }
+    
+    .filter-title {
+      font-size: 10pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #718096;
+      margin: 0 0 10px 0;
+    }
+    
+    .filter-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    
+    .filter-item {
+      margin: 0;
+    }
+    
+    .filter-label {
+      font-weight: bold;
+      color: #4a5568;
+      margin-right: 5px;
+    }
+    
+    .filter-value {
+      color: #2d3748;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 10pt;
+    }
+    
+    th {
+      background-color: #edf2f7;
+      color: #2d3748;
+      font-weight: 600;
+      text-align: left;
+      padding: 10px;
+      border-bottom: 2px solid #cbd5e0;
+    }
+    
+    td {
+      padding: 10px;
+      border-bottom: 1px solid #e2e8f0;
+      color: #4a5568;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f9fafb;
+    }
+    
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 9pt;
+      color: #718096;
+      padding-top: 15px;
+      border-top: 1px solid #e0e0e0;
+    }
+    
+    .timestamp {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="logo">Sistema de Vacinação</div>
+      <h1>Relatório de Vacinação</h1>
+      <p class="subtitle">Registro de vacinas aplicadas</p>
+    </div>
+    
+    <div class="filter-info">
+      <p class="filter-title">Filtros aplicados</p>
+      <div class="filter-details">
+        {% if form.cleaned_data.child %}
+        <p class="filter-item">
+          <span class="filter-label">Criança:</span>
+          <span class="filter-value">{{ form.cleaned_data.child.name }}</span>
+        </p>
+        {% endif %}
+        
+        {% if form.cleaned_data.start_date %}
+        <p class="filter-item">
+          <span class="filter-label">Data inicial:</span>
+          <span class="filter-value">{{ form.cleaned_data.start_date|date:"d/m/Y" }}</span>
+        </p>
+        {% endif %}
+        
+        {% if form.cleaned_data.end_date %}
+        <p class="filter-item">
+          <span class="filter-label">Data final:</span>
+          <span class="filter-value">{{ form.cleaned_data.end_date|date:"d/m/Y" }}</span>
+        </p>
+        {% endif %}
+        
+        {% if not form.cleaned_data.child and not form.cleaned_data.start_date and not form.cleaned_data.end_date %}
+        <p class="filter-item">
+          <span class="filter-value">Nenhum filtro aplicado</span>
+        </p>
+        {% endif %}
+      </div>
+    </div>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Criança</th>
+          <th>Vacina</th>
+          <th>Data de Aplicação</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for rec in records %}
+        <tr>
+          <td>{{ rec.child.name }}</td>
+          <td>{{ rec.vaccine.name }}</td>
+          <td>{{ rec.applied_date|date:"d/m/Y" }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3" style="text-align: center; padding: 20px; color: #718096;">
+            Nenhum registro encontrado para os filtros selecionados.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+    <div class="footer">
+      <p class="timestamp">Relatório gerado em {% now "d/m/Y H:i" %}</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+  <!-- Card principal para o formulário de vacina -->
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div class="bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-4">
+      <div class="flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        <h1 class="text-2xl font-bold text-white">
+          {% if object %}Editar Vacina{% else %}Nova Vacina{% endif %}
+        </h1>
+      </div>
+    </div>
+    
+    <div class="p-6">
+      <form method="post" class="space-y-6">
+        {% csrf_token %}
+        
+        <!-- Campo Nome -->
+        <div>
+          <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+            Nome da Vacina*
+          </label>
+          <div class="mt-1">
+            <input type="text" name="{{ form.name.name }}" id="{{ form.name.id_for_label }}" 
+              value="{{ form.name.value|default:'' }}"
+              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              placeholder="Ex: BCG, Hepatite B, etc." required>
+          </div>
+          {% if form.name.errors %}
+          <p class="mt-2 text-sm text-red-600">
+            {{ form.name.errors }}
+          </p>
+          {% endif %}
+        </div>
+        
+        <!-- Campo Descrição -->
+        <div>
+          <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+            Descrição
+          </label>
+          <div class="mt-1">
+            <textarea name="{{ form.description.name }}" id="{{ form.description.id_for_label }}" rows="3"
+              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              placeholder="Descreva brevemente os detalhes desta vacina...">{{ form.description.value|default:'' }}</textarea>
+          </div>
+          {% if form.description.errors %}
+          <p class="mt-2 text-sm text-red-600">
+            {{ form.description.errors }}
+          </p>
+          {% endif %}
+          <p class="mt-1 text-sm text-gray-500">
+            Breve descrição sobre a vacina e sua finalidade.
+          </p>
+        </div>
+        
+        <!-- Campo Idade Recomendada -->
+        <div>
+          <label for="{{ form.recommended_age_months.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+            Idade Recomendada (meses)*
+          </label>
+          <div class="mt-1 flex rounded-md shadow-sm">
+            <input type="number" name="{{ form.recommended_age_months.name }}" id="{{ form.recommended_age_months.id_for_label }}" 
+              value="{{ form.recommended_age_months.value|default:'' }}"
+              min="0" step="1"
+              class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              placeholder="0" required>
+          </div>
+          {% if form.recommended_age_months.errors %}
+          <p class="mt-2 text-sm text-red-600">
+            {{ form.recommended_age_months.errors }}
+          </p>
+          {% endif %}
+          <p class="mt-1 text-sm text-gray-500">
+            Use 0 para vacinas que devem ser aplicadas ao nascer.
+          </p>
+        </div>
+        
+        <!-- Botões de Ação -->
+        <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+          <a href="{% url 'vaccine_list' %}" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Voltar
+          </a>
+          <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Salvar
+          </button>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  
+  <!-- Card de ajuda (opcional) -->
+  <div class="mt-6 bg-blue-50 rounded-lg p-4 text-sm text-blue-700">
+    <div class="flex">
+      <div class="flex-shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <div class="ml-3">
+        <p>As vacinas cadastradas serão automaticamente adicionadas ao calendário de vacinação de acordo com a idade recomendada.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

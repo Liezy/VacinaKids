@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="text-2xl font-bold mb-4">Vacinas de {{ child.name }}</h1>
+
+<table class="table-auto w-full border-collapse">
+  <thead>
+    <tr class="bg-gray-200">
+      <th class="p-2">Vacina</th>
+      <th class="p-2">Idade Padrão (meses)</th>
+      <th class="p-2">Agendada</th>
+      <th class="p-2">Aplicada</th>
+      <th class="p-2">Status</th>
+      <th class="p-2">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for vac, reg in rows %}
+      {% if reg and reg.status == 'overdue' %}
+        <tr class="bg-red-100">
+      {% elif reg and reg.status == 'applied' %}
+        <tr class="bg-green-100">
+      {% else %}
+        <tr class="bg-gray-100">
+      {% endif %}
+      
+        <td class="p-2">{{ vac.name }}</td>
+        <td class="p-2 text-center">
+          {{ vac.default_age_months|default:"—" }}
+        </td>
+
+        <td class="p-2 text-center">
+          {{ reg.scheduled_date|default:"—" }}
+        </td>
+
+        <td class="p-2 text-center">
+          {{ reg.applied_date|default:"—" }}
+        </td>
+
+        <td class="p-2 text-center">
+          {% if reg %}
+            {{ reg.get_status_display }}
+          {% else %}
+            Não agendada
+          {% endif %}
+        </td>
+
+        <td class="p-2">
+          {% if reg %}
+            <a href="#" class="text-blue-600">Editar</a>
+             | 
+            <a href="#" class="text-red-600">Excluir</a>
+          {% else %}
+            <a href="#"
+               class="text-green-600">
+              Agendar
+            </a>
+          {% endif %}
+        </td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="6" class="p-4 text-center">
+          Nenhuma vacina cadastrada no sistema.
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{% url 'child_list' %}" class="btn btn-secondary mt-4">
+  ← Voltar às Crianças
+</a>
+{% endblock %}

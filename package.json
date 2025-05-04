@@ -1,0 +1,10 @@
+{
+    "name": "vacinakids",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "concurrently \"python manage.py tailwind start\" \"python manage.py runserver\""
+    },
+    "devDependencies": {
+        "concurrently": "^8.2.2"
+    }
+}

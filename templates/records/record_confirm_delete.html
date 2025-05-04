@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="max-w-md mx-auto my-12 p-6 bg-white rounded-lg shadow-sm">
+  <div class="text-center mb-6">
+    <h1 class="text-xl font-medium text-gray-800">Confirmar exclusão</h1>
+    <div class="h-px bg-gray-200 my-4"></div>
+  </div>
+  
+  <p class="text-gray-600 text-center mb-8">
+    Você está prestes a excluir o registro de vacinação de 
+    <span class="font-medium text-gray-800">{{ object.child.name }}</span> com 
+    <span class="font-medium text-gray-800">{{ object.vaccine.name }}</span>
+  </p>
+  
+  <form method="post" class="flex flex-col sm:flex-row justify-center gap-3">
+    {% csrf_token %}
+    <button type="submit" class="px-4 py-2 bg-red-50 text-red-600 rounded-md hover:bg-red-100 transition-all">
+      Excluir registro
+    </button>
+    <a href="{% url 'record_list' %}" class="px-4 py-2 bg-gray-100 text-gray-600 rounded-md hover:bg-gray-200 transition-all text-center">
+      Cancelar
+    </a>
+  </form>
+</div>
+{% endblock %}
