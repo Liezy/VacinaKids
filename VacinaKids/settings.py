@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u1v4!ec_ovb!7!n(56eaa33=+=3(1#bp*h(yux&8qn)6@n5b7)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -69,6 +69,9 @@ MIDDLEWARE = [
 
     # django-browser-reload middleware
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+
+    # Whitenoise middleware for serving static files
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'VacinaKids.urls'
