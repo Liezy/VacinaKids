@@ -16,9 +16,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
+from accounts.views import CustomLoginView, CustomLogoutView
 
 urlpatterns = [
-    path('', include('accounts.urls')),  # redirect para login
+    # exibe o login quando acessa “/”
+    path('', CustomLoginView.as_view(), name='login'),
+
+    # login e logout
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('logout/', CustomLogoutView.as_view(), name='logout'), 
+
+    # admin e apps
     path('admin/', admin.site.urls),
     path('criancas/', include('children.urls')), # URLs de crianças
     path('vacinas/', include('vaccines.urls')),  # URLs de vacinas

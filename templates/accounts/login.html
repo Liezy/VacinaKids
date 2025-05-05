@@ -44,7 +44,7 @@
         </div>
       </div>
       
-      <form method="post" x-data="{ showPassword: false }">
+      <form method="post" action="{% url 'login' %}" x-data="{ showPassword: false }">
         {% csrf_token %}
         {{ form.non_field_errors }}
         
