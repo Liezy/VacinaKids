@@ -35,7 +35,7 @@ ADMIN_PASSWORD  = config('ADMIN_PASSWORD', default=None)
 
 # CSRF_TRUSTED_ORIGINS
 CSRF_TRUSTED_ORIGINS = [
-    'https://vacina-kids.onrender.com',
+    'https://vacinakids.onrender.com',
 ]
 
 
