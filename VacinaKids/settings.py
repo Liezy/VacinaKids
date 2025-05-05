@@ -52,7 +52,6 @@ INSTALLED_APPS = [
 
     # APPS
     'theme',
-    'accounts',
     'children',
     'notifications',
     'reports',
