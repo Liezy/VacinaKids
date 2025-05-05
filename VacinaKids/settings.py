@@ -30,6 +30,9 @@ DEBUG      = config('DEBUG', default=False, cast=bool)
 # ALLOWED_HOSTS
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
+ADMIN_CPF       = config('ADMIN_CPF', default=None)
+ADMIN_PASSWORD  = config('ADMIN_PASSWORD', default=None)
+
 # CSRF_TRUSTED_ORIGINS
 CSRF_TRUSTED_ORIGINS = [
     'https://vacina-kids.onrender.com',
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts.apps.AccountsConfig',
 
     # APPS
     'theme',
