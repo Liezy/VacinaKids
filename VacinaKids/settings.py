@@ -58,7 +58,6 @@ INSTALLED_APPS = [
 
     # Others
     'tailwind', # app gerado pelo django-tailwind
-    #'django_browser_reload', # app gerado pelo django-browser-reload
     'rest_framework',   # se for usar DRF  
     'widget_tweaks', # para customizar widgets do Django Forms
 ]
@@ -71,9 +70,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # django-browser-reload middleware
-    #"django_browser_reload.middleware.BrowserReloadMiddleware",
 
     # Whitenoise middleware for serving static files
     'whitenoise.middleware.WhiteNoiseMiddleware',

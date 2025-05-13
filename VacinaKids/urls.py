@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
 from accounts.views import CustomLoginView, CustomLogoutView
+from records.views import health
 
 urlpatterns = [
     # exibe o login quando acessa “/”
@@ -36,4 +37,7 @@ urlpatterns = [
 
     # Reloading the browser when the code changes
     path("__reload__/", include("django_browser_reload.urls")),
+
+    # Health check endpoint
+    path('health/', health, name='health'),
 ]
