@@ -109,6 +109,7 @@ DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL'),
         conn_max_age=600,  # Keep the connection open for 10 minutes
+        ssl_require=True
     )
 }
 
