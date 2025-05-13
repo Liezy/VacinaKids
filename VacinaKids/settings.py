@@ -26,7 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # DEBUG
-DEBUG      = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
+
 
 # ALLOWED_HOSTS
 ALLOWED_HOSTS = ['*']
@@ -82,6 +83,13 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+if DEBUG:
+    INSTALLED_APPS += ['django_browser_reload']
+    MIDDLEWARE.insert(
+        MIDDLEWARE.index('django.middleware.common.CommonMiddleware') + 1,
+        'django_browser_reload.middleware.BrowserReloadMiddleware'
+    )
+
 ROOT_URLCONF = 'VacinaKids.urls'
 
 TEMPLATES = [
@@ -109,7 +117,6 @@ DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL'),
         conn_max_age=600,  # Keep the connection open for 10 minutes
-        ssl_require=True
     )
 }
 
