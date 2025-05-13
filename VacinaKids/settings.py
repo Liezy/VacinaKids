@@ -83,12 +83,12 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
+# Carrega django-browser-reload apenas em desenvolvimento
 if DEBUG:
-    INSTALLED_APPS += ['django_browser_reload']
-    MIDDLEWARE.insert(
-        MIDDLEWARE.index('django.middleware.common.CommonMiddleware') + 1,
-        'django_browser_reload.middleware.BrowserReloadMiddleware'
-    )
+    INSTALLED_APPS.append('django_browser_reload')
+    # Insere a middleware logo após CommonMiddleware
+    idx = MIDDLEWARE.index('django.middleware.common.CommonMiddleware')
+    MIDDLEWARE.insert(idx + 1, 'django_browser_reload.middleware.BrowserReloadMiddleware')
 
 ROOT_URLCONF = 'VacinaKids.urls'
 
