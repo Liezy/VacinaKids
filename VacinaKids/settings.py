@@ -25,10 +25,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECRET_KEY
 SECRET_KEY = config('SECRET_KEY')
 
-# DEBUG
-DEBUG = config('DEBUG', default=False, cast=bool)
-
-
 # ALLOWED_HOSTS
 ALLOWED_HOSTS = ['*']
 
@@ -62,7 +58,7 @@ INSTALLED_APPS = [
 
     # Others
     'tailwind', # app gerado pelo django-tailwind
-    'django_browser_reload', # app gerado pelo django-browser-reload
+    #'django_browser_reload', # app gerado pelo django-browser-reload
     'rest_framework',   # se for usar DRF  
     'widget_tweaks', # para customizar widgets do Django Forms
 ]
@@ -77,16 +73,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
     # django-browser-reload middleware
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    #"django_browser_reload.middleware.BrowserReloadMiddleware",
 
     # Whitenoise middleware for serving static files
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-# Carrega django-browser-reload apenas em desenvolvimento
+# DEBUG
+DEBUG = config('DEBUG', default=False, cast=bool)
+
 if DEBUG:
     INSTALLED_APPS.append('django_browser_reload')
-    # Insere a middleware logo após CommonMiddleware
+    # injeta a middleware logo após CommonMiddleware
     idx = MIDDLEWARE.index('django.middleware.common.CommonMiddleware')
     MIDDLEWARE.insert(idx + 1, 'django_browser_reload.middleware.BrowserReloadMiddleware')
 
