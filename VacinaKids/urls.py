@@ -34,6 +34,7 @@ urlpatterns = [
     path('vacinas/', include('vaccines.urls')),  # URLs de vacinas
     path('registros/', include('records.urls')), # URLs de registros
     path('relatorios/', include('reports.urls')), # URLs de relatórios
+    path('configuracoes/', include('accounts.urls')), # URLs de configurações
 
     # Reloading the browser when the code changes
     path("__reload__/", include("django_browser_reload.urls")),
