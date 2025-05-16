@@ -20,6 +20,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField('Nome', max_length=30, blank=True)
     last_name = models.CharField('Sobrenome', max_length=30, blank=True)
     email = models.EmailField('E-mail', blank=True)
+    receive_email_notifications = models.BooleanField("Receber email de notificações", default=False)
     is_active = models.BooleanField('Ativo', default=True)
     is_staff = models.BooleanField('Staff', default=False)
     date_joined = models.DateTimeField('Data de entrada', auto_now_add=True)

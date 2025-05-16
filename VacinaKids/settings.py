@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'tailwind', # app gerado pelo django-tailwind
     'rest_framework',   # se for usar DRF  
     'widget_tweaks', # para customizar widgets do Django Forms
+    'django_crontab' # para agendar tarefas periódicas
 ]
 
 MIDDLEWARE = [
@@ -169,3 +170,17 @@ AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'child_list'
 LOGOUT_REDIRECT_URL = 'login'
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+CRONJOBS = [
+  # todo dia às 8h
+  ('0 8 * * *', 'django.core.management.call_command', ['send_vaccine_reminders'])
+]

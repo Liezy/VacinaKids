@@ -7,3 +7,8 @@ class LoginForm(AuthenticationForm):
         widget=forms.TextInput(attrs={'autofocus': True}))
     password = forms.CharField(label='Senha', strip=False,
         widget=forms.PasswordInput)
+    
+class NotificationSettingsForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['receive_email_notifications']

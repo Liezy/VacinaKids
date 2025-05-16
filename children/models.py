@@ -1,6 +1,13 @@
 from django.db import models
+from django.conf import settings
 
 class Child(models.Model):
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='children',
+        verbose_name='Usuário dono'
+    )
     name = models.CharField("Nome", max_length=100)
     birth_date = models.DateField("Data de Nascimento")
     mother_name = models.CharField("Nome da Mãe", max_length=150)

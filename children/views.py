@@ -20,11 +20,19 @@ class ChildCreateView(LoginRequiredMixin, CreateView):
     template_name = 'children/child_form.html'
     success_url = reverse_lazy('child_list')
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
+
 class ChildUpdateView(LoginRequiredMixin, UpdateView):
     model = Child
     form_class = ChildForm
     template_name = 'children/child_form.html'
     success_url = reverse_lazy('child_list')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        return super().form_valid(form)
 
 class ChildDeleteView(LoginRequiredMixin, DeleteView):
     model = Child
